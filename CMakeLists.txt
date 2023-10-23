@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.26)
+project(prj_ti301 C)
+
+set(CMAKE_C_STANDARD 11)
+
+add_executable(prj_ti301
+        main.c)
