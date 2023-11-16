@@ -2,7 +2,6 @@
 // Created by IamaU on 16/11/2023.
 //
 
-// cell.c
 #include <stdlib.h>
 #include "cell.h"
 
