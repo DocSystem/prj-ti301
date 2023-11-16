@@ -9,7 +9,8 @@
 
 typedef struct s_d_list
 {
-    t_d_cell * level;
+    int size;
+    t_d_cell * * level;
 } t_d_list;
 
 t_d_list * create_list(int lvl);
