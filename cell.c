@@ -1,8 +1,6 @@
 //
 // Created by IamaU on 16/11/2023.
 //
-
-#include <stdlib.h>
 #include "cell.h"
 
 t_d_cell * create_cell(int value, int lvl){

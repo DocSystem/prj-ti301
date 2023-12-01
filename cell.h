@@ -6,6 +6,8 @@
 #ifndef CELL_H
 #define CELL_H
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #define BOOL int
 #define TRUE 1
 #define FALSE 0

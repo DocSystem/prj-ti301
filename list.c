@@ -3,8 +3,6 @@
 //
 
 // list.c
-#include <stdio.h>
-#include <stdlib.h>
 #include "list.h"
 
 t_d_list * create_list(int lvl){
