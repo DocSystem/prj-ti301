@@ -20,3 +20,4 @@ t_d_list * create_list(int lvl){
 void display_list(t_d_list * list){
 
 }
+
