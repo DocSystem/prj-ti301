@@ -10,10 +10,16 @@
 typedef struct s_d_list
 {
     int size;
-    t_d_cell * * level;
+    t_d_cell * *  level;
 } t_d_list;
 
 t_d_list * create_list(int lvl);
 
-void display_list(t_d_list * list);
+BOOL insert_cell_first(t_d_list * list, t_d_cell * cell);
+
+void display_list(t_d_list * list, int lvl_number);
+
+void display_every_list(t_d_list * list);
+
+BOOL insert_cell(t_d_list * list, t_d_cell * cell);
 #endif
