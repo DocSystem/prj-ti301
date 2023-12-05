@@ -65,19 +65,23 @@ int advanced_seek_value(t_d_list *L, int n){
     t_d_cell * tmp = L->level[lvl];
     t_d_cell * pretmp = tmp;
 
-    while(tmp != NULL || lvl != 0){
+    while(lvl != 0 || tmp != NULL){
         if(tmp->value == n){
             return i;
         }
-        pretmp = tmp;
-        tmp = tmp->level[lvl];
-        i = i + pow(2,lvl);
-        if(tmp == NULL || tmp->value > n){
-            tmp = pretmp->level[lvl-1];
-            pretmp = tmp;
-            lvl;
+        else{
+            if(tmp == NULL || tmp->value > n){
+                lvl--;
+                printf("Level: %d", lvl);
+                tmp = pretmp->level[lvl];
+                pretmp = tmp;
+            }
+            else{
+                pretmp = tmp;
+                tmp = tmp->level[lvl];
+                i = i + pow(2, lvl);
+            }
         }
-
     }
     return 0;
 }

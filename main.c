@@ -23,9 +23,9 @@ int main() {
 
     //Test part 2:
 
-    t_d_list * L = create_time_comparison_list(3);
+    t_d_list * L = create_time_comparison_list(4);
     display_every_list(L);
-    int i = advanced_seek_value(L,3);
+    int i = advanced_seek_value(L,6);
     printf("%d",i);
 
     return 0;
