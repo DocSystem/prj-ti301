@@ -52,6 +52,44 @@ void display_every_list(t_d_list * list){
     }
 }
 
+void advanced_display_list(t_d_list * list){
+    if(list->size == 1){
+        display_list(list, 0);
+    }
+    else{
+        display_list(list, 0);
+        printf("\n");
+        for(int i = 1; i < list->size; i++){
+            printf("[list head_%d @-]-->", i);
+
+            t_d_cell * tmp = list->level[i];
+            t_d_cell * inf_tmp = list->level[0];
+            int j = 0;
+
+            while(tmp != NULL){
+                j = 0;
+                while(inf_tmp != tmp){
+                    inf_tmp = inf_tmp->level[0];
+                    j++;
+                }
+                for(int k = 0; k < j; k++){
+                    printf("----------");
+                }
+                printf("[ %d|@-]-->", tmp->value);
+                tmp = tmp->level[i];
+                inf_tmp = inf_tmp->level[0];
+            }
+            if(inf_tmp != NULL){
+                for(int k = 0; k < j; k++){
+                    printf("----------");
+                }
+            }
+
+            printf("NULL\n");
+        }
+    }
+}
+
 BOOL insert_cell(t_d_list *list, t_d_cell *cell) {
     if (list->size < cell->size) {
         return FALSE;
