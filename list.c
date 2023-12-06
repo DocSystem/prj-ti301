@@ -6,13 +6,17 @@
 #include "list.h"
 
 t_d_list * create_list(int lvl){
-    static t_d_list L; //static to avoid stack memory issue
-    L.size = lvl;
-    L.level = (t_d_cell * *)malloc(lvl * sizeof(t_d_cell *)); //creation of a dynamic array of lvl levels
-    for(int i = 0; i < lvl; i++){
-        L.level[i] = NULL;
+    if(lvl > 0){
+        t_d_list * L = (t_d_list *) malloc(sizeof(t_d_list ));
+        L->size = lvl;
+        L->level = (t_d_cell * *)malloc(lvl * sizeof(t_d_cell *)); //creation of a dynamic array of lvl levels
+        for(int i = 0; i < lvl; i++){
+            L->level[i] = NULL;
+        }
+        return L;
     }
-    return &L;
+    return NULL;
+
 }
 
 BOOL insert_cell_first(t_d_list * list, t_d_cell * cell){
