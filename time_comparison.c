@@ -98,7 +98,6 @@ int advanced_seek_value(t_d_list *L, int n){
                    i = i - pow(2, pretmp_lvl);
                    tmp = pretmp->level[pretmp_lvl];
                    pretmp_lvl--;
-
                }
                else{
                    if(tmp->value <= n){

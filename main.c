@@ -1,5 +1,6 @@
 // main.c
 #include "time_comparison.h"
+#include "timer.h"
 
 int main() {
 
@@ -22,15 +23,57 @@ int main() {
     */
 
     //Test part 2:
-
+    /*
     int n = 3, i ;
     t_d_list * L = create_time_comparison_list(n);
     advanced_display_list(L);
 
     for(int a = 0; a < pow(2,n); a++){
         i = advanced_seek_value(L,a);
-        printf("Indice finale = %d\n",i);
+        printf("Indice finale + 1 = %d\n",i);
     }
+    */
+
+    //Time comparison test:
+
+    t_d_list  * L = NULL;
+    int n = 10, j = 1;
+    int search_value;
+
+
+    FILE *log_file = fopen("log.txt","w");
+    char format[] = "%d\t%s\t%s\n" ;
+    int level;
+    char *time_lvl0;
+    char *time_all_levels;
+
+    while(j <= n){
+        srand(1);
+        L = create_time_comparison_list(j);
+        printf("Parcours du niveau d'une liste de taille N = %d\n",j);
+        int number_of_value = pow(2,j);
+
+
+        for(int i = 0; i < 10000; i++){
+            search_value = rand() % number_of_value;
+            classic_seek_value(L, search_value);
+        }
+
+        time_lvl0 = getTimeAsString(); // fonction du module timer
+
+        for(int i = 0; i < 10000; i++){
+            search_value = rand() % number_of_value;
+            advanced_seek_value(L,search_value);
+        }
+
+        time_all_levels = getTimeAsString();
+        fprintf(log_file,format,level,time_lvl0, time_all_levels);
+
+        j++;
+    }
+    fclose(log_file);
+
+
 
     return 0;
 }
