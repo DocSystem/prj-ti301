@@ -23,11 +23,10 @@ int main() {
 
     //Test part 2:
 
-    int n = 6;
+    int n = 3, i ;
     t_d_list * L = create_time_comparison_list(n);
     advanced_display_list(L);
 
-    int i;
     for(int a = 0; a < pow(2,n); a++){
         i = advanced_seek_value(L,a);
         printf("Indice finale = %d\n",i);

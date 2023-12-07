@@ -6,4 +6,6 @@ set(CMAKE_C_STANDARD 11)
 add_executable(prj_ti301
         main.c cell.h list.h cell.c list.c
         time_comparison.h
-        time_comparison.c)
+        time_comparison.c
+        timer.c
+        timer.h)
