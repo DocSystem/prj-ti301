@@ -23,11 +23,15 @@ int main() {
 
     //Test part 2:
 
-    t_d_list * L = create_time_comparison_list(3);
+    int n = 6;
+    t_d_list * L = create_time_comparison_list(n);
     advanced_display_list(L);
 
-    int i = advanced_seek_value(L,6);
-    printf("%d",i);
+    int i;
+    for(int a = 0; a < pow(2,n); a++){
+        i = advanced_seek_value(L,a);
+        printf("Indice finale = %d\n",i);
+    }
 
     return 0;
 }

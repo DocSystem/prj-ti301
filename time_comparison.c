@@ -60,28 +60,74 @@ int classic_seek_value(t_d_list * L, int n){
 }
 
 int advanced_seek_value(t_d_list *L, int n){
-    int i = 1;
-    int lvl = L->size - 1;
-    t_d_cell * tmp = L->level[lvl];
-    t_d_cell * pretmp = tmp;
-
-    while(lvl != 0 || tmp != NULL){
-        if(tmp->value == n){
-            return i;
-        }
-        else{
-            if(tmp == NULL || tmp->value > n){
-                lvl--;
-                printf("Level: %d", lvl);
-                tmp = pretmp->level[lvl];
-                pretmp = tmp;
-            }
-            else{
-                pretmp = tmp;
-                tmp = tmp->level[lvl];
-                i = i + pow(2, lvl);
-            }
-        }
+    if(L->size == 1){
+        return classic_seek_value(L, n);
     }
-    return 0;
+    else {
+        int pretmp_lvl = L->size - 2;
+        int i = pow(2, pretmp_lvl+1);
+
+        t_d_cell *pretmp = L->level[pretmp_lvl];
+        t_d_cell *tmp = L->level[pretmp_lvl+1];
+
+       while(tmp->value >= n && tmp == L->level[pretmp_lvl+1] && pretmp_lvl > 0){
+           if(tmp->value == n){
+               return i;
+           }
+           else{
+               pretmp_lvl--;
+               i = pow(2, pretmp_lvl+1);
+               pretmp = L->level[pretmp_lvl];
+               tmp = L->level[pretmp_lvl+1];
+           }
+       }
+       if(pretmp_lvl == 0){
+           i = i - pow(2, pretmp_lvl);
+           while(pretmp != NULL){
+               if(pretmp->value == n){
+                   return i;
+               }
+               pretmp = pretmp->level[0];
+               i++;
+           }
+           return 0; //everything is supposed ok here
+       }
+       else{
+           while(pretmp_lvl > 0){
+               if(tmp == NULL){
+                   i = i - pow(2, pretmp_lvl);
+                   tmp = pretmp->level[pretmp_lvl];
+                   pretmp_lvl--;
+
+               }
+               else{
+                   if(tmp->value <= n){
+                       if(tmp->value == n){
+                           return i;
+                       }
+                       else{
+                           pretmp = tmp;
+                           tmp = tmp->level[pretmp_lvl + 1];
+                           i = i + pow(2, pretmp_lvl+1);
+                       }
+                   }
+                   else{
+                       i = i - pow(2, pretmp_lvl);
+                       tmp = pretmp->level[pretmp_lvl];
+                       pretmp_lvl--;
+                   }
+               }
+           }
+           i = i - pow(2, pretmp_lvl+1);
+           while(pretmp != NULL){
+               if(pretmp->value == n){
+                   return i;
+               }
+               pretmp = pretmp->level[0];
+               i++;
+           }
+           return 0;
+       }
+
+    }
 }
