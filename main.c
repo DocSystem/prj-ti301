@@ -53,18 +53,24 @@ int main() {
         printf("Parcours du niveau d'une liste de taille N = %d\n",j);
         int number_of_value = pow(2,j);
 
+        startTimer();
 
-        for(int i = 0; i < 10000; i++){
+        for(int i = 0; i < 10000000; i++){
             search_value = rand() % number_of_value;
             classic_seek_value(L, search_value);
         }
+        stopTimer();
 
         time_lvl0 = getTimeAsString(); // fonction du module timer
 
-        for(int i = 0; i < 10000; i++){
+        startTimer();
+
+        for(int i = 0; i < 10000000; i++){
             search_value = rand() % number_of_value;
             advanced_seek_value(L,search_value);
         }
+
+        stopTimer();
 
         time_all_levels = getTimeAsString();
         fprintf(log_file,format,level,time_lvl0, time_all_levels);
