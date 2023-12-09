@@ -8,4 +8,11 @@ add_executable(prj_ti301
         time_comparison.h
         time_comparison.c
         timer.c
-        timer.h)
+        timer.h
+        time_comparison.c
+        contact.c
+        contact.h
+        event.c
+        event.h
+        agenda.c
+        agenda.h)
