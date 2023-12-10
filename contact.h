@@ -13,6 +13,8 @@ typedef struct {
 
 Contact *create_contact(char *first_name, char *last_name);
 
+Contact *scan_new_contact();
+
 void display_contact(Contact *contact);
 
 #endif //PRJ_TI301_CONTACT_H

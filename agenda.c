@@ -61,7 +61,7 @@ void add_entry_to_agenda(Agenda *agenda, AgendaEntry *entry) {
 
     // We add the entry to the agenda at the right level and levels below
     for (int i = level; i >= 0; --i) {
-        AgendaEntry *current = agenda->entries[i];
+        current = agenda->entries[i];
         if (current == NULL) {
             agenda->entries[i] = entry;
         } else {
@@ -99,4 +99,16 @@ void display_agenda(Agenda *agenda) {
             entry = entry->nexts[i];
         }
     }
+}
+
+AgendaEntry* search_entry_contact(Agenda *agenda, char* id_beginning) {
+    // todo: OPTIMIZE
+    AgendaEntry *current = agenda->entries[0];
+    while (current != NULL) {
+        if (strncmp(id_beginning, current->contact->id, strlen(id_beginning)) == 0) {
+            return current;
+        }
+        current = current->nexts[0];
+    }
+    return NULL;
 }

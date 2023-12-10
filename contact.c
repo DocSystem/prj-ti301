@@ -19,6 +19,18 @@ Contact *create_contact(char *first_name, char *last_name) {
     return contact;
 }
 
+Contact *scan_new_contact() {
+    char* first_name = malloc(sizeof(char) * 100);
+    printf("Entrez le prénom : ");
+    fgets(first_name, 100, stdin);
+    first_name[strlen(first_name) - 1] = '\0';
+    char* last_name = malloc(sizeof(char) * 100);
+    printf("Entrez le nom de famille : ");
+    fgets(last_name, 100, stdin);
+    last_name[strlen(last_name) - 1] = '\0';
+    return create_contact(first_name, last_name);
+}
+
 void display_contact(Contact *contact) {
-    printf("%s\n", contact->id);
+    printf("%s %s\n", contact->name, contact->surname);
 }
