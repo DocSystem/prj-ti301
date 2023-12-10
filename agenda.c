@@ -38,8 +38,14 @@ void add_entry_to_agenda(Agenda *agenda, AgendaEntry *entry) {
     previous[3] = agenda->entries[3];
     while (current != NULL) {
         if (strncmp(id, current->contact->id, 3) == 0) {
+            AgendaEntry *next = current->nexts[0];
             level = 0;
-            if (current->contact->id[3] > id[3]) {
+            if (next == NULL) {
+                previous[0] = current;
+                break;
+            }
+            if (next->contact->id[3] > id[3]) {
+                previous[0] = current;
                 break;
             }
             previous[0] = current;
@@ -50,8 +56,14 @@ void add_entry_to_agenda(Agenda *agenda, AgendaEntry *entry) {
         current = agenda->entries[1];
         while (current != NULL) {
             if (strncmp(id, current->contact->id, 2) == 0) {
+                AgendaEntry *next = current->nexts[1];
                 level = 1;
-                if (current->contact->id[1] > id[1]) {
+                if (next == NULL) {
+                    previous[1] = current;
+                    break;
+                }
+                if (next->contact->id[2] > id[2]) {
+                    previous[1] = current;
                     break;
                 }
                 previous[1] = current;
@@ -63,8 +75,14 @@ void add_entry_to_agenda(Agenda *agenda, AgendaEntry *entry) {
         current = agenda->entries[2];
         while (current != NULL) {
             if (strncmp(id, current->contact->id, 1) == 0) {
+                AgendaEntry *next = current->nexts[2];
                 level = 2;
-                if (current->contact->id[2] > id[2]) {
+                if (next == NULL) {
+                    previous[2] = current;
+                    break;
+                }
+                if (next->contact->id[1] > id[1]) {
+                    previous[2] = current;
                     break;
                 }
                 previous[2] = current;
@@ -75,10 +93,16 @@ void add_entry_to_agenda(Agenda *agenda, AgendaEntry *entry) {
     if (level != 0 && level != 1 && level != 2) {
         current = agenda->entries[3];
         while (current != NULL) {
-            if (current->contact->id[0] > id[0]) {
+            AgendaEntry *next = current->nexts[3];
+            level = 3;
+            if (next == NULL) {
+                previous[3] = current;
                 break;
             }
-            previous[3] = current;
+            if (next->contact->id[0] > id[0]) {
+                previous[3] = current;
+                break;
+            }
             current = current->nexts[3];
         }
     }
@@ -88,10 +112,21 @@ void add_entry_to_agenda(Agenda *agenda, AgendaEntry *entry) {
             agenda->entries[i] = entry;
         }
         else {
-            if (previous[i]->nexts[i] != NULL) {
-                entry->nexts[i] = previous[i]->nexts[i];
+            if (i == level) {
+                if (previous[i]->nexts[i] != NULL) {
+                    entry->nexts[i] = previous[i]->nexts[i];
+                }
+                previous[i]->nexts[i] = entry;
             }
-            previous[i]->nexts[i] = entry;
+            else {
+                while (previous[i]->nexts[i] != NULL && previous[i]->nexts[i]->contact->id[3 - i] < id[3 - i]) {
+                    previous[i] = previous[i]->nexts[i];
+                }
+                if (previous[i]->nexts[i] != NULL) {
+                    entry->nexts[i] = previous[i]->nexts[i];
+                }
+                previous[i]->nexts[i] = entry;
+            }
         }
     }
 }
