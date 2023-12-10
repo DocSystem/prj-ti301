@@ -10,7 +10,7 @@
 
 typedef struct AgendaEntry {
     Contact *contact;
-    EventList *events;
+    EventCell *events;
     struct AgendaEntry **nexts;
 } AgendaEntry;
 

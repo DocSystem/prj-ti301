@@ -23,7 +23,7 @@ int showMenu() {
     printf("====================================================================\n");
     printf("Entrez votre choix : ");
     scanf("%d", &choice);
-    while (choice < 1 || choice > 9) {
+    while (choice < 1 || choice > 10) {
         printf("Entrez votre choix : ");
         scanf("%d", &choice);
     }
@@ -58,7 +58,7 @@ void saveAgenda(Agenda* agenda) {
     fprintf(file, "Nom;Prenom;Date;Heure;Durée;Nom du rendez-vous\n");
     AgendaEntry *entry = agenda->entries[0];
     while (entry != NULL) {
-        EventList *event = entry->events;
+        EventCell *event = entry->events;
         while (event != NULL) {
             fprintf(file, "%s;%s;%d/%d/%d;%dh%d;%dh%d;%s\n", entry->contact->surname, entry->contact->name, event->value->date.day, event->value->date.month, event->value->date.year, event->value->time.hour, event->value->time.minute, event->value->duration.hour, event->value->duration.minute, event->value->name);
             event = event->next;
@@ -109,14 +109,14 @@ Agenda* loadAgenda() {
             add_entry_to_agenda(agenda, entry);
         }
         if (entry->events == NULL) {
-            entry->events = create_event_list(event);
+            entry->events = create_event_cell(event);
         }
         else {
-            EventList *current = entry->events;
+            EventCell *current = entry->events;
             while (current->next != NULL) {
                 current = current->next;
             }
-            current->next = create_event_list(event);
+            current->next = create_event_cell(event);
         }
     }
     return agenda;

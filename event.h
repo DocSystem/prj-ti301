@@ -23,14 +23,14 @@ typedef struct {
     char *name;
 } Event;
 
-typedef struct EventList {
+typedef struct EventCell {
     Event *value;
-    struct EventList *next;
-} EventList;
+    struct EventCell *next;
+} EventCell;
 
 Event *create_event(int day, int month, int year, int start_hour, int start_minute, int duration_hour, int duration_minute, char *name);
 
-EventList *create_event_list(Event* event);
+EventCell *create_event_cell(Event* event);
 
 void display_event(Event *event);
 
