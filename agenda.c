@@ -160,69 +160,30 @@ void display_agenda(Agenda *agenda) {
 }
 
 AgendaEntry* search_entry_contact(Agenda *agenda, char* id_beginning) {
-    // todo: OPTIMIZE
-    AgendaEntry *current = agenda->entries[0];
+    AgendaEntry *current = agenda->entries[3];
     while (current != NULL) {
-        if (strncmp(id_beginning, current->contact->id, strlen(id_beginning)) == 0) {
-            return current;
+        if (strncmp(current->contact->id, id_beginning, 1) == 0) {
+            break;
+        }
+        current = current->nexts[3];
+    }
+    while (current != NULL) {
+        if (strncmp(current->contact->id, id_beginning, 2) == 0) {
+            break;
+        }
+        current = current->nexts[2];
+    }
+    while (current != NULL) {
+        if (strncmp(current->contact->id, id_beginning, 3) == 0) {
+            break;
+        }
+        current = current->nexts[1];
+    }
+    while (current != NULL) {
+        if (strncmp(current->contact->id, id_beginning, strlen(id_beginning)) == 0) {
+            break;
         }
         current = current->nexts[0];
     }
-    return NULL;
+    return current;
 }
-
-
-void advanced_display_agenda(Agenda *agenda){
-    if(agenda->nbLevels == 1){
-        printf("[list head_%d @-]-->", agenda->nbLevels);
-        if(agenda->entries[0] != NULL){
-            AgendaEntry * tmp = agenda->entries[0];
-            while(tmp != NULL){
-                printf("[ %s|@-]-->", tmp->contact->id);
-                tmp = tmp->nexts[0];
-            }
-        }
-        printf("NULL");
-    }
-    else{
-        printf("[list head_%d @-]-->", agenda->nbLevels);
-        if(agenda->entries[0] != NULL){
-            AgendaEntry * tmp = agenda->entries[0];
-            while(tmp != NULL){
-                printf("[ %s|@-]-->", tmp->contact->id);
-                tmp = tmp->nexts[0];
-            }
-        }
-        printf("NULL");
-        printf("\n");
-        for(int i = 1; i < agenda->nbLevels; i++){
-            printf("[list head_%d @-]-->", i);
-
-            AgendaEntry * tmp = agenda->entries[i];
-            AgendaEntry * inf_tmp = agenda->entries[0];
-            int j = 0;
-
-            while(tmp != NULL){
-                j = 0;
-                while(inf_tmp != tmp){
-                    inf_tmp = inf_tmp->nexts[0];
-                    j++;
-                }
-                for(int k = 0; k < j; k++){
-                    printf("----------");
-                }
-                printf("[ %s|@-]-->", tmp->contact->id);
-                tmp = tmp->nexts[i];
-                inf_tmp = inf_tmp->nexts[0];
-            }
-            if(inf_tmp != NULL){
-                for(int k = 0; k < j; k++){
-                    printf("----------");
-                }
-            }
-
-            printf("NULL\n");
-        }
-    }
-}
-
