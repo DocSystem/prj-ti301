@@ -27,6 +27,16 @@ EventList* create_event_list(Event* event) {
     return list;
 }
 
+char* proper_display_int(int number) {
+    char* value = malloc(sizeof(char) * 3);
+    if (number < 10) {
+        sprintf(value, "0%d", number);
+    } else {
+        sprintf(value, "%d", number);
+    }
+    return value;
+}
+
 void display_event(Event* event) {
-    printf("%s: %d/%d/%d %d:%d for %d:%d\n", event->name, event->date.day, event->date.month, event->date.year, event->time.hour, event->time.minute, event->duration.hour, event->duration.minute);
+    printf("%s: %s/%s/%s à %sh%s pendant %sh%s\n", event->name, proper_display_int(event->date.day), proper_display_int(event->date.month), proper_display_int(event->date.year), proper_display_int(event->time.hour), proper_display_int(event->time.minute), proper_display_int(event->duration.hour), proper_display_int(event->duration.minute));
 }

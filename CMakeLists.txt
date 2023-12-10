@@ -15,4 +15,6 @@ add_executable(prj_ti301
         event.c
         event.h
         agenda.c
-        agenda.h)
+        agenda.h
+        utils.c
+        utils.h)
