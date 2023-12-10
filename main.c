@@ -142,7 +142,7 @@ int main() {
                     printf("Contact trouvé : ");
                     display_contact(entry->contact);
                     printf("Rendez-vous : \n");
-                    EventList *event = entry->events;
+                    EventCell *event = entry->events;
                     while (event != NULL) {
                         printf("\t\t- ");
                         display_event(event->value);
@@ -189,8 +189,8 @@ int main() {
                 int duration[2];
                 safeScanf("time", duration);
                 Event *event = create_event(date[0], date[1], date[2], start[0], start[1], duration[0], duration[1], event_name);
-                EventList *event_list = create_event_list(event);
-                EventList *current = entry->events;
+                EventCell *event_list = create_event_cell(event);
+                EventCell *current = entry->events;
                 if (current == NULL) {
                     entry->events = event_list;
                 }
@@ -216,8 +216,8 @@ int main() {
                 char* event_name = malloc(sizeof(char) * 100);
                 fgets(event_name, 100, stdin);
                 event_name[strlen(event_name) - 1] = '\0';
-                EventList *current = entry->events;
-                EventList *previous = NULL;
+                EventCell *current = entry->events;
+                EventCell *previous = NULL;
                 while (current != NULL) {
                     if (strcmp(current->value->name, event_name) == 0) {
                         if (previous == NULL) {
@@ -264,6 +264,10 @@ int main() {
             case 9:
                 printf("Bye bye !");
                 isRunning = 0;
+                break;
+            case 10:
+                display_agenda(agenda);
+                printf("\n");
                 break;
             default: break;
         }

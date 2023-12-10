@@ -20,11 +20,11 @@ Event* create_event(int day, int month, int year, int start_hour, int start_minu
     return event;
 }
 
-EventList* create_event_list(Event* event) {
-    EventList *list = malloc(sizeof(EventList));
-    list->value = event;
-    list->next = NULL;
-    return list;
+EventCell* create_event_cell(Event* event) {
+    EventCell *cell = malloc(sizeof(EventCell));
+    cell->value = event;
+    cell->next = NULL;
+    return cell;
 }
 
 char* proper_display_int(int number) {
