@@ -96,23 +96,6 @@ int main() {
 
     Agenda *agenda = create_agenda(4);
 
-    /* Contact *contact1 = create_contact("Antoine", "Souben-Fink");
-    Contact *contact2 = create_contact("Yoan", "Souben-Fink");
-    Contact *contact3 = create_contact("Antoine", "Saaben-Fink");
-    Contact *contact4 = create_contact("Paul", "Zanolin");
-
-    AgendaEntry *entry1 = create_agenda_entry(contact1);
-    AgendaEntry *entry2 = create_agenda_entry(contact2);
-    AgendaEntry *entry3 = create_agenda_entry(contact3);
-    AgendaEntry *entry4 = create_agenda_entry(contact4);
-
-    add_entry_to_agenda(agenda, entry1);
-    add_entry_to_agenda(agenda, entry2);
-    add_entry_to_agenda(agenda, entry3);
-    add_entry_to_agenda(agenda, entry4);
-
-    display_agenda(agenda); */
-
     while (isRunning) {
         int choice = showMenu();
 

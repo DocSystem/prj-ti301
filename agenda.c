@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 
 AgendaEntry *create_agenda_entry(Contact *contact) {
@@ -186,4 +187,77 @@ AgendaEntry* search_entry_contact(Agenda *agenda, char* id_beginning) {
         current = current->nexts[0];
     }
     return current;
+}
+
+/**
+ * Fills the agenda with 1000 contacts.
+ * @param agenda the agenda to fill.
+ */
+void fill_agenda(Agenda *agenda) {
+    // read 2000 random lines from names.csv
+    FILE* file = fopen("names.csv", "r");
+    int numLines = 2000;
+
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    // Count the total number of lines in the file
+    int totalLines = 0;
+    int ch;
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n') {
+            totalLines++;
+        }
+    }
+
+    // Set the seed for random number generation
+    srand(time(NULL));
+
+    // Ensure we don't try to read more lines than the total number of lines in the file
+    if (numLines > totalLines) {
+        numLines = totalLines;
+    }
+
+    // Reset file position to the beginning
+    fseek(file, 0, SEEK_SET);
+
+    // Read and print 2000 random lines
+    char* lines[numLines];
+    for (int i = 0; i < numLines; i++) {
+        int randomLine = rand() % totalLines;
+
+        // Move to the beginning of the file
+        fseek(file, 0, SEEK_SET);
+
+        // Read lines until the randomly selected line
+        for (int j = 0; j < randomLine; j++) {
+            while ((ch = fgetc(file)) != '\n' && ch != EOF) {
+            }
+        }
+
+        // Read the selected line
+        char* line = malloc(sizeof(char) * 100);
+        fgets(line, 100, file);
+        line[strlen(line) - 1] = '\0';
+        // remove \n
+        for (int j = 0; j < strlen(line); ++j) {
+            if (line[j] == '\n') {
+                line[j] = '\0';
+            }
+        }
+        lines[i] = line;
+    }
+    fclose(file);
+
+    for (int i = 0; i < 2000; i += 2) {
+        char* name = malloc(sizeof(char) * strlen(lines[i]));
+        char* surname = malloc(sizeof(char) * strlen(lines[i + 1]));
+        strcpy(name, lines[i]);
+        strcpy(surname, lines[i + 1]);
+        Contact* contact = create_contact(name, surname);
+        AgendaEntry* entry = create_agenda_entry(contact);
+        add_entry_to_agenda(agenda, entry);
+    }
 }

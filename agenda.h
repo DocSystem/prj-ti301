@@ -27,4 +27,6 @@ void display_agenda(Agenda *agenda);
 
 AgendaEntry *search_entry_contact(Agenda *agenda, char *id_beginning);
 
+void fill_agenda(Agenda *agenda);
+
 #endif //PRJ_TI301_AGENDA_H
